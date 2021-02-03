@@ -5,9 +5,12 @@
     padding: 20px;
     font-family: fantasy;
 }
-.watchlist{
-    margin-left: 0;
+
+#watchlist {
+    padding: 20px;
+    margin: 10px;
 }
+
 h1 {
     color: green
 }
@@ -37,7 +40,7 @@ h3 {
 
 }
 #news {
-    height: 300px;
+    height: auto;
     border: 2px solid gray;
     background:white;
     padding:20px;
@@ -45,6 +48,10 @@ h3 {
     margin-right: 0;
     width: 100%;
 
+}
+
+#newstwo {
+    height: auto;
 }
 
 
