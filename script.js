@@ -121,3 +121,23 @@ function getYesterday() {
 function dashboardList(item) {
   document.querySelector('ul').innerHTML += `<button><li class="list-group-item">${item}</li></button>`
 }
+
+
+
+
+
+
+
+//save to Local Storage
+//testing code start//
+var company = "Bill"
+//testing code end//
+
+//testbutton for saving watchlist
+function saveWishList(event){
+  console.log("Save wishlist button pressed")
+  // var watchlistItem = document.querySelector('#addFav').value
+  var watchlistItem = company
+  watchLIst(company)//change to watchlistItem 
+  
+}
