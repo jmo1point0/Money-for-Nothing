@@ -15,6 +15,14 @@ var qRevenueGrowthYOY
 var qRevenue
 var compName
 
+
+
+
+var LSWL = JSON.parse(localStorage.getItem('LSWL'))
+
+console.log(LSWL)
+console.log(LSWL.length)
+
 getYesterday()
 
 // Saves the last thing searched in a variable
@@ -89,6 +97,9 @@ function changeCompInfo() {
   document.querySelector('#yearHigh').innerHTML = `52 Week High: <strong>${yearHigh}</strong>`
   // Dispalys the 52 Week Low
   document.querySelector('#yearLow').innerHTML = `52 Week Low: <strong>${yearLow}</strong>`
+
+  if(`${qEarningsGrowthYOY}`< 0 ) {document.querySelector("#cardQEarnings").style.color = "red"}
+  if(`${qRevenueGrowthYOY}`< 0 ) {document.querySelector("#cardQRevenue").style.color = "red"}
 }
 
 
@@ -128,34 +139,42 @@ function dashboardList(item) {
 
 
 
-//save to Local Storage
-//testing code start//
-var company = "Bill"
-//testing code end//
 
 //testbutton for saving watchlist
-function saveWishList(event){
-  console.log("Save wishlist button pressed")
-  // var watchlistItem = document.querySelector('#addFav').value
-  var watchlistItem = company
-  watchLIst(company)//change to watchlistItem 
+function addtoWatchList(event){
+  console.log("add to Watch List button pressed")
+  updateLocalStorage(compName)//change to watchlistItem 
   
 }
 
-function watchLIst(company){
-  console.log("Watchlist function started")
-  console.log(company)
-  var currentWatchList = company
-  console.log(currentWatchList)
+function updateLocalStorage(compName){
+  console.log("update Local Storage function started")
+  var newWLItem = compName
+  console.log(newWLItem);
 
-  if(localStorage.savedWatchList){
-    var savedWatchList = JSON.parse(localStorage.getItem("savedWatchList"))
-
-    console.log("found watchList", savedWatchList)
-    
-        savedWatchList.push(currentWatchList)
-
-    localStorage.setItem("savedWatchList", JSON.stringify(savedWatchList));
-
+  if(localStorage.getItem("LSWL")=== null){
+    LSWL = [];
+  } else {
+    LSWL = JSON.parse(localStorage.getItem('LSWL'));
   }
+
+  LSWL.push(newWLItem);
+  
+  localStorage.setItem('LSWL', JSON.stringify(LSWL));
+ 
+
 }
+
+
+function watchlist(){
+  var LSWLLength = LSWL.length
+
+
+
+  for (i=0; i < LSWLLength; i++){
+    document.querySelector('.list-group').innerHTML += `<li><button>${LSWL[i]}</button></li>`
+  }
+
+}
+
+watchlist()
