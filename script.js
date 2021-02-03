@@ -141,3 +141,22 @@ function saveWishList(event){
   watchLIst(company)//change to watchlistItem 
   
 }
+
+function watchLIst(company){
+  console.log("Watchlist function started")
+  console.log(company)
+  var currentWatchList = company
+  console.log(currentWatchList)
+
+  if(localStorage.savedWatchList){
+    var savedWatchList = JSON.parse(localStorage.getItem("savedWatchList"))
+
+    console.log("found watchList", savedWatchList)
+    
+    
+    savedWatchList.push(currentWatchList)
+
+    localStorage.setItem("savedWatchList", JSON.stringify(savedWatchList));
+
+  }
+}
