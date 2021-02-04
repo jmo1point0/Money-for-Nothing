@@ -41,9 +41,6 @@ function searchButton(event) {
 }
 
 
-
-
-
 // Uses the query to find the searched companies' information
 async function companySearch(query) {
   // API query is saved to a variable
@@ -133,16 +130,14 @@ function getYesterday() {
 
 
 
-//Scan local storage
+// Scan local storage
 function checkLS(compName){
-    //check to see if newWLItem is already in the list - if the number is less than 0 (-1) then it is new and not already on the list
-    
-    console.log(`${compName}`)
-    newWLItemcheck = LSWL.indexOf(`${compName}`)
-    console.log(newWLItemcheck)
-    //add new item to the array if it is not null
-    // Need to figure out how to add this so it works && newWLItem < 0
-  //Change Watch List Button Color
+  // check to see if company is already on watch list     
+  console.log(`${compName}`)
+  // if result is less than 0 not on the list
+  newWLItemcheck = LSWL.indexOf(`${compName}`)
+  console.log(newWLItemcheck)
+  // change wachlist button color and text
   if (newWLItemcheck >= 0){
     console.log(newWLItemcheck<1)
     console.log(newWLItemcheck)
@@ -153,15 +148,13 @@ function checkLS(compName){
   } else {
     document.querySelector('.wlbtn').classList.replace("btn-danger","btn-success")
     document.querySelector('.wlbtn').innerHTML = "+ to Watchlist"
-
   }
-
 }
 
 
 
 
-// Watch list button trigger (add or remove from list)
+// Watchlist button trigger (add or remove from list)
 function watchListBtn(event){
   console.log("Watch List button pressed")
   var wlbtnresults = document.querySelector('.wlbtn').innerText
@@ -174,7 +167,7 @@ function watchListBtn(event){
   }  
 }
 
-// save items to Local Storage
+// save items to local storage
 function addLocalStorage(){
   console.log("add Local Storage function started")
   // pull Local Storage if exists
@@ -214,7 +207,7 @@ function watchlist(){
 }
 watchlist()
 
-//when the Watchlist button is pushed, pass the company name via the search function trigger
+//when the watchlist button is pushed, pass the company name via the search function trigger
   function wlBtnSearch(event){
     console.log("WL button click")
     var wlbSearch = document.querySelector(".wlBtn").innerText
