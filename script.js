@@ -20,10 +20,10 @@ var compName
 
 var LSWL = JSON.parse(localStorage.getItem('LSWL'))
 
-console.log(LSWL)
-console.log(LSWL.length)
+
 
 getYesterday()
+
 
 // Saves the last thing searched in a variable
 function searchButton(event) {
@@ -147,34 +147,40 @@ function addtoWatchList(event){
   
 }
 
+//save new items to Local Storage
 function updateLocalStorage(compName){
   console.log("update Local Storage function started")
   var newWLItem = compName
   console.log(newWLItem);
-
+  //check to see if Local Storage exisits if so pull that, if not create empty array
   if(localStorage.getItem("LSWL")=== null){
     LSWL = [];
   } else {
     LSWL = JSON.parse(localStorage.getItem('LSWL'));
   }
-
-  LSWL.push(newWLItem);
-  
+  //add new item to the array if it is not null
+  if (newWLItem != null){
+    LSWL.push(newWLItem);
+  } else {alert("Search for a company using the search bar")}
+  //Push updated array with new item back to Local Storage
   localStorage.setItem('LSWL', JSON.stringify(LSWL));
- 
-
+  watchlist()
 }
 
-
+//Pull watchlist from Local Storage and add the button to the HTML
 function watchlist(){
+  document.querySelector('.list-group').innerHTML = ""
   var LSWLLength = LSWL.length
-
-
-
   for (i=0; i < LSWLLength; i++){
-    document.querySelector('.list-group').innerHTML += `<li><button>${LSWL[i]}</button></li>`
+    document.querySelector('.list-group').innerHTML += `<li class="wlBtn"><button onclick="wlBtnSearch(event)">${LSWL[i]}</button></li>`
   }
-
 }
-
 watchlist()
+
+
+  function wlBtnSearch(event){
+    console.log("WL button click")
+    var wlbSearch = document.querySelector(".wlBtn").innerText
+    console.log(wlbSearch)
+    stockSearch(wlbSearch)
+  }
