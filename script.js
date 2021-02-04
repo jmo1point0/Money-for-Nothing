@@ -17,8 +17,9 @@ var compName
 
 
 
-
+//Infor for Local Storage and Watch List
 var LSWL = JSON.parse(localStorage.getItem('LSWL'))
+var newWLItemcheck = LSWL.indexOf(compName)
 
 
 
@@ -61,6 +62,8 @@ async function companySearch(query) {
   // LOGS INFO TO THE CONSOLE
   console.log(`${query}'s info\nTheir sector is: [${sector}]\nTheir exchange is: [${exchange}]\nTheir Quarter Earnings is: [${qEarningsGrowthYOY}]\nTheir Quarterly Revenue Growth is: [${qRevenueGrowthYOY}]`)
   console.log('query')
+    // Check Local Storage for company
+  checkLS(compName)
 }
 
 // Uses query to find they previous day's closing price
@@ -127,47 +130,76 @@ function getYesterday() {
   isoDatefix = isoDate.slice(0, 10)
   console.log(`The previous day is: ${isoDatefix}`);
 }
-///Watchlist JS
 
-function dashboardList(item) {
-  document.querySelector('ul').innerHTML += `<button><li class="list-group-item">${item}</li></button>`
+
+
+//Scan local storage
+function checkLS(compName){
+    //check to see if newWLItem is already in the list - if the number is less than 0 (-1) then it is new and not already on the list
+    
+    console.log(`${compName}`)
+    newWLItemcheck = LSWL.indexOf(`${compName}`)
+    console.log(newWLItemcheck)
+    //add new item to the array if it is not null
+    // Need to figure out how to add this so it works && newWLItem < 0
+  //Change Watch List Button Color
+  if (newWLItemcheck >= 0){
+    console.log(newWLItemcheck<1)
+    console.log(newWLItemcheck)
+    console.log(typeof(newWLItemcheck))
+    
+    document.querySelector('.wlbtn').classList.replace("btn-success", "btn-danger")
+    document.querySelector('.wlbtn').innerHTML = "- from Watchlist"
+  } else {
+    document.querySelector('.wlbtn').classList.replace("btn-danger","btn-success")
+    document.querySelector('.wlbtn').innerHTML = "+ to Watchlist"
+
+  }
+
 }
 
 
 
 
-
-
-
-
-//testbutton for saving watchlist
-function addtoWatchList(event){
-  console.log("add to Watch List button pressed")
-  updateLocalStorage(compName)//change to watchlistItem 
-  
+// Watch list button trigger (add or remove from list)
+function watchListBtn(event){
+  console.log("Watch List button pressed")
+  var wlbtnresults = document.querySelector('.wlbtn').innerText
+  if(wlbtnresults === "+ to Watchlist"){
+    console.log("good to go")
+    addLocalStorage()
+  } else {
+    console.log("no go")
+  }  
 }
 
-//save new items to Local Storage
-function updateLocalStorage(compName){
+// save items to Local Storage
+function addLocalStorage(){
   console.log("update Local Storage function started")
-  var newWLItem = compName
-  console.log(newWLItem);
-  //check to see if Local Storage exisits if so pull that, if not create empty array
+  // pull Local Storage if exists
   if(localStorage.getItem("LSWL")=== null){
     LSWL = [];
   } else {
     LSWL = JSON.parse(localStorage.getItem('LSWL'));
   }
-  //add new item to the array if it is not null
-  if (newWLItem != null){
-    LSWL.push(newWLItem);
-  } else {alert("Search for a company using the search bar")}
-  //Push updated array with new item back to Local Storage
+  // if section is not blan proceed else stop
+  if (compName != null ) {
+    LSWL.push(compName);
+  } else {alert("Search for a company using the search bar")
+  }
+  // Push updated array with new item back to Local Storage
   localStorage.setItem('LSWL', JSON.stringify(LSWL));
   watchlist()
 }
 
-//Pull watchlist from Local Storage and add the button to the HTML
+// remove from local storage
+function removeLocalStorage(){
+
+
+}
+
+
+// Add to  Watchlist
 function watchlist(){
   document.querySelector('.list-group').innerHTML = ""
   var LSWLLength = LSWL.length
@@ -177,10 +209,20 @@ function watchlist(){
 }
 watchlist()
 
-
+//when the Watchlist button is pushed, pass the company name via the search function trigger
   function wlBtnSearch(event){
     console.log("WL button click")
     var wlbSearch = document.querySelector(".wlBtn").innerText
     console.log(wlbSearch)
     stockSearch(wlbSearch)
   }
+
+
+// //remove from Watchlist
+// function removeWatchListItem()){
+  
+// }
+
+
+
+
