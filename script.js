@@ -170,19 +170,20 @@ function watchListBtn(event){
     addLocalStorage()
   } else {
     console.log("no go")
+    removeLocalStorage()
   }  
 }
 
 // save items to Local Storage
 function addLocalStorage(){
-  console.log("update Local Storage function started")
+  console.log("add Local Storage function started")
   // pull Local Storage if exists
   if(localStorage.getItem("LSWL")=== null){
     LSWL = [];
   } else {
     LSWL = JSON.parse(localStorage.getItem('LSWL'));
   }
-  // if section is not blan proceed else stop
+  // if section is not blank proceed else stop
   if (compName != null ) {
     LSWL.push(compName);
   } else {alert("Search for a company using the search bar")
@@ -194,8 +195,12 @@ function addLocalStorage(){
 
 // remove from local storage
 function removeLocalStorage(){
-
-
+  console.log("remove Local Storage function started")
+  console.log(newWLItemcheck)
+  LSWL = JSON.parse(localStorage.getItem('LSWL'));
+  LSWLnew = LSWL.splice(newWLItemcheck,1)
+  localStorage.setItem('LSWL', JSON.stringify(LSWL));
+  watchlist()
 }
 
 
@@ -218,10 +223,7 @@ watchlist()
   }
 
 
-// //remove from Watchlist
-// function removeWatchListItem()){
-  
-// }
+
 
 
 
